@@ -39,6 +39,9 @@ public class StartupRunner implements CommandLineRunner {
 
             switch (scanner.nextInt()){
                 case 1 -> listSneaker();
+                case 2 -> findByModel(scanner);
+                case 3 -> findByPrice(scanner);
+                case 4 -> findByYear(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
@@ -59,7 +62,7 @@ public class StartupRunner implements CommandLineRunner {
         System.out.println("Model name: ");
         String text = scanner.nextLine();
         for(Sneaker s : sneakerRepository.findByModelContaining(text)){
-            System.out.println(s.getModel());
+            System.out.println(s.getModel() + " (" + s.getPrice() + ")");
         }
     }
 
