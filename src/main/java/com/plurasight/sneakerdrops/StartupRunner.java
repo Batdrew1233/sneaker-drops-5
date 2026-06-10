@@ -31,6 +31,9 @@ public class StartupRunner implements CommandLineRunner {
         while (running){
             System.out.println("\n ===== Sneaker =====");
             System.out.println("1) List all sneakers");
+            System.out.println("2) Search by model");
+            System.out.println("3) Search by price");
+            System.out.println("4) search by year");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
@@ -48,6 +51,31 @@ public class StartupRunner implements CommandLineRunner {
         System.out.println("You have " + sneakerRepository.count() + " sneakers:");
         for (Sneaker s : sneakerRepository.findAll()){
             System.out.println(s.getId() + " - " + s.getModel() + " (" + s.getPrice() + ")");
+        }
+    }
+
+    private void findByModel(Scanner scanner){
+        scanner.nextLine();
+        System.out.println("Model name: ");
+        String text = scanner.nextLine();
+        for(Sneaker s : sneakerRepository.findByModelContaining(text)){
+            System.out.println(s.getModel());
+        }
+    }
+
+    private void findByPrice(Scanner scanner){
+        System.out.println("Max price: ");
+        double price = scanner.nextDouble();
+        for (Sneaker s : sneakerRepository.findByPriceLessThan(price)){
+            System.out.println(s.getModel() + " (" + s.getPrice() + ")");
+        }
+    }
+
+    private void findByYear(Scanner scanner){
+        System.out.println("Year: ");
+        int year = scanner.nextInt();
+        for (Sneaker s : sneakerRepository.findByReleaseYear(year)){
+            System.out.println(s.getModel() + " (" + s.getReleaseYear() + ")");
         }
     }
 
